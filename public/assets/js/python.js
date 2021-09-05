@@ -11,48 +11,46 @@ const options = {
 };
 
 function handleMifotraFile() {
-	//   let path_to_open = inputPath.value
-	let endpoint = base_url + 'open-explorer';
-	// let endpoint = base_url + 'hello/' + 'Victor';
+	let endpoint = base_url + 'validate-hssmag';
 
 	dialog
 		.showOpenDialog({
 			properties: ['openFile'],
-			filters: [{ name: 'Text', extensions: ['xls', 'xlsx', 'csv'] }],
+			filters: [{ name: 'Text', extensions: ['xlsx'] }],
 		})
 		.then((result) => {
 			console.log(result.filePaths, result.canceled);
-			// console.log(result.filePaths);
-			dataResult.innerHTML = JSON.stringify(result.filePaths[0], null, 4);
 			if (result.filePaths.length > 0) {
 				let req_data = {
 					path: result.filePaths[0],
 				};
+				localStorage.setItem('hss_mag', req_data.path);
 				axios
 					.post(endpoint, req_data)
-					.then((res) => {
-						// dataResult.innerHTML = res['data'];
-						console.log(res.data);
-						btnMifotra.classList.remove('btn-info');
-						btnMifotra.classList.add('btn-success');
-						iconMifotra.classList.remove('d-none');
-						btnIDS.disabled = false;
-						apiResult.innerHTML = JSON.stringify(res.data, null, 4);
+					.then(({ data }) => {
+						if (data.success) {
+							btnMifotra.classList.remove('btn-info');
+							btnMifotra.classList.add('btn-success');
+							iconMifotra.classList.remove('d-none');
+							btnIDS.disabled = false;
+						} else {
+							btnMifotra.classList.remove('btn-info');
+							btnMifotra.classList.add('btn-danger');
+							errorMessage.innerHTML = data.msg;
+							toggleModal.click();
+						}
 					})
 					.catch((err) => {
-						console.log({ err });
 						btnMifotra.classList.remove('btn-info');
 						btnMifotra.classList.add('btn-danger');
-						apiResult.innerHTML = JSON.stringify(err, null, 4);
+						errorMessage.innerHTML =
+							'An Error Occurred please contact Admin';
+						toggleModal.click();
 					});
 			}
 		})
 		.catch((err) => {
-			// console.log(err);
-			dataResult.innerHTML = JSON.stringify(err, null, 4);
+			errorMessage.innerHTML = err;
+			toggleModal.click();
 		});
-	// console.log();
-	//   let req_data = {
-	//     path: path_to_open
-	//   }
 }

@@ -17,21 +17,27 @@ def read_root(name: str):
     return f"hello {name}"
 
 
-@app.post("/open-explorer/")
+@app.post("/validate-hssmag/")
 def open_explorer(model: api_model.PathModel, response: Response):
 
-    # os.startfile(model.path)
-    # Match ID's and update Create a new COlumn with Account Nos
-    # Update
-    # try:
-    mifotra_data = pd.read_excel(
-        model.path, sheet_name="HSS MAG", na_filter=False, engine="openpyxl"
-    )
-    # raise 'Err'
-    return JSONResponse(status_code=status.HTTP_201_CREATED, content="Worked")
-    # except Exception as e:
+    try:
+        # mifotra_data = pd.read_excel(
+        #     model.path, sheet_name="HSS MAG", na_filter=False, engine="openpyxl"
+        # )
+        wb = load_workbook(model.path, read_only=True)  # open an Excel file and return a workbook
+        if "HSS MAG" in wb.sheetnames:
+            return JSONResponse(
+                status_code=status.HTTP_201_CREATED, content={"success": True, "msg": "Valid"}
+            )
+        else:
+            raise Exception("Sheet called HSS MAG Should Exist in uploaded file")
 
-    # return f"wb.sheetnames -------->{e}"
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content="Worked")
+    except Exception as e:
+        return JSONResponse(
+            status_code=status.HTTP_201_CREATED,
+            content={"success": False, "msg": str(e)},
+        )
 
 
 if __name__ == "__main__":
