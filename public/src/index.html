@@ -26,6 +26,44 @@
 </head>
 
 <body class="antialiased" style="background-color:#8CC63E">
+	<a href="#" class="btn btn-white d-none" id='toggleModal' data-bs-toggle="modal" data-bs-target="#modalDanger">
+		Warning Modal
+	</a>
+	<div class="modal modal-blur fade" id="modalDanger" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<div class="modal-status bg-danger"></div>
+				<div class="modal-body text-center py-4">
+					<!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24"
+						viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+						stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+						<path d="M12 9v2m0 4v.01" />
+						<path
+							d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
+					</svg>
+					<h3>Are you sure?</h3>
+					<div class="text-muted" id="errorMessage">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="w-100">
+						<div class="row">
+							<div class="col"><a href="#" class="btn btn-white w-100" data-bs-dismiss="modal">
+									Cancel
+								</a></div>
+							<div class="col"><a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal">
+									Delete 84 items
+								</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="wrapper">
 		<div class="page-wrapper">
 			<div class="container-xl">
@@ -62,22 +100,34 @@
 										<div class="card">
 											<div class="card-body">
 												<div class="mb-1">
-													<button onclick="open_explorer()" id="btnPath"
-														class="btn btn-info w-100 uppercase">Mifotra Data</button>
+													<!-- <button onclick="handleMifotraFile()" id="btnPath"
+														class="btn btn-info w-100 uppercase"></button> -->
+													<button onclick="handleMifotraFile()" type="button" id="btnMifotra"
+														class="btn btn-info w-100 uppercase">
+														<!-- Download SVG icon from http://tabler-icons.io/i/check -->
+														<svg xmlns="http://www.w3.org/2000/svg" class="icon d-none"
+															id="iconMifotra" width="24" height="24" viewBox="0 0 24 24"
+															stroke-width="2" stroke="currentColor" fill="none"
+															stroke-linecap="round" stroke-linejoin="round">
+															<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+															<path d="M5 12l5 5l10 -10" />
+														</svg>
+														Mifotra Data
+													</button>
 												</div>
 												<div class="mb-1">
-													<button onclick="open_explorer()" id="btnPath"
+													<button disabled onclick="open_explorer()" id="btnIDS"
 														class="btn btn-info w-100 uppercase">ID&Account</button>
 												</div>
 												<div class="mb-1">
-													<button onclick="open_explorer()" id="btnPath"
+													<button disabled onclick="open_explorer()" id="btnPath"
 														class="btn btn-info w-100 uppercase">Output Folder</button>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-2 text-center p-2">
-										<button type="button" class="btn btn-circle btn-xl">START</button>
+										<button disabled type="button" class="btn btn-circle btn-xl">START</button>
 									</div>
 								</div>
 							</div>

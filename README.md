@@ -1,26 +1,22 @@
 ![Electron JS Python Fast API](https://raw.githubusercontent.com/gnoviawan/fast-api-electron-js/main/public/assets/media/logo/electron-fastapi.png)
 
 # Electron JS x Python Fast API
+
 > Modern web UI x Python FAST API
 
 ## Preview
+
 ![Fast API Electron JS Preview](https://raw.githubusercontent.com/gnoviawan/fast-api-electron-js/main/public/assets/media/logo/python-electronjs.gif)
-
-
 
 ## Prerequisite
 
-- Working Python environment (virtual environment is recommended), Python 3
-- Know how to use Node.js command
-
-
+-   Working Python environment (virtual environment is recommended), Python 3
+-   Know how to use Node.js command
 
 ## Features
 
- 1. Python Backend - do as you wish with python, do AI / ML / etc and send those data to modern web UI
- 2. Cross Platform APP using web UI
-
-
+1.  Python Backend - do as you wish with python, do AI / ML / etc and send those data to modern web UI
+2.  Cross Platform APP using web UI
 
 ## Installing / Getting started
 
@@ -29,8 +25,6 @@ clone this git
 ```shell
 git clone https://github.com/gnoviawan/fast-api-electron-js.git
 ```
-
-
 
 ## Initial Configuration
 
@@ -43,6 +37,8 @@ cd fast-api-electron-js
 install all python dependencies
 
 ```shell
+python3.9 -m venv venv
+source venv/bin/activate
 npm run py-install
 ```
 
@@ -51,8 +47,6 @@ install all node js dependencies
 ```shell
 npm install
 ```
-
-
 
 ## Developing
 
@@ -74,8 +68,6 @@ run this command to preview your app
 npm run electron-dev
 ```
 
-
-
 ## Deploying / Publishing
 
 #### Building Python :
@@ -93,8 +85,9 @@ npm run py-build
 also if you are not using Windows change this code inside `public/assets/js/main.js` to another OS executable format ( not tested )
 
 ```javascript
-const  API_PROD_PATH = path.join(process.resourcesPath, "../lib/api/api.exe")
+const API_PROD_PATH = path.join(process.resourcesPath, '../lib/api/api.exe');
 ```
+
 #### Build the application :
 
 after we build our fast API it's time to build our main APP, run this command to build it
@@ -105,8 +98,6 @@ npm run electron-build
 
 our app are published to this path `dist`
 if you want to change the build options modify this config file `electron-builder.config.json` more about the options please check [electron-builder](https://www.electron.build/) documentation
-
-
 
 ## All Reference Links for this project
 
@@ -136,7 +127,4 @@ if you want to change the build options modify this config file `electron-builde
 
 [PyInstaller](https://pyinstaller.readthedocs.io/en/stable/index.html) = build our python to executable format
 
-
-
 ## [Licensing](https://github.com/gnoviawan/fast-api-electron-js/blob/main/LICENSE.md)
-

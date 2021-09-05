@@ -10,7 +10,7 @@ const options = {
 	},
 };
 
-function open_explorer() {
+function handleMifotraFile() {
 	//   let path_to_open = inputPath.value
 	let endpoint = base_url + 'open-explorer';
 	// let endpoint = base_url + 'hello/' + 'Victor';
@@ -32,9 +32,17 @@ function open_explorer() {
 					.post(endpoint, req_data)
 					.then((res) => {
 						// dataResult.innerHTML = res['data'];
-						apiResult.innerHTML = JSON.stringify(res, null, 4);
+						console.log(res.data);
+						btnMifotra.classList.remove('btn-info');
+						btnMifotra.classList.add('btn-success');
+						iconMifotra.classList.remove('d-none');
+						btnIDS.disabled = false;
+						apiResult.innerHTML = JSON.stringify(res.data, null, 4);
 					})
 					.catch((err) => {
+						console.log({ err });
+						btnMifotra.classList.remove('btn-info');
+						btnMifotra.classList.add('btn-danger');
 						apiResult.innerHTML = JSON.stringify(err, null, 4);
 					});
 			}

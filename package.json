@@ -7,20 +7,19 @@
 		"py-install": "pip install -r requirements.txt",
 		"py-build": "pyinstaller --workpath=engine/build --distpath=engine/dist api.spec",
 		"electron-dev": "electron .",
-		"electron-build": "electron-builder --config electron-builder.config.json"
+		"electron-build": "electron-builder --config electron-builder.config.json  --win --x64"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/victor-abz/hss-mag-file.git"
 	},
-	"author": "Ginanjar Noviawan",
+	"author": "Victor Abizeyimana",
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/victor-abz/hss-mag-file/issues"
 	},
 	"homepage": "https://github.com/victor-abz/hss-mag-file#readme",
 	"devDependencies": {
-		"axios": "^0.21.1",
 		"electron": "^13.1.2",
 		"electron-builder": "^22.11.7",
 		"electron-reloader": "^1.2.1",
