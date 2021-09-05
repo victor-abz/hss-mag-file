@@ -40,6 +40,29 @@ def open_explorer(model: api_model.PathModel, response: Response):
         )
 
 
+@app.post("/validate-ids/")
+def validat_id(model: api_model.PathModel, response: Response):
+
+    try:
+        # mifotra_data = pd.read_excel(
+        #     model.path, sheet_name="HSS MAG", na_filter=False, engine="openpyxl"
+        # )
+        adfinance_ids = pd.read_csv(model.path)
+        if "idnumber" in adfinance_ids.columns and "num_complet_cpte" in adfinance_ids.columns:
+            return JSONResponse(
+                status_code=status.HTTP_201_CREATED, content={"success": True, "msg": "Valid"}
+            )
+        else:
+            raise Exception("Sheet called HSS MAG Should Exist in uploaded file")
+
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content="Worked")
+    except Exception as e:
+        return JSONResponse(
+            status_code=status.HTTP_201_CREATED,
+            content={"success": False, "msg": str(e)},
+        )
+
+
 if __name__ == "__main__":
     import asyncio
 

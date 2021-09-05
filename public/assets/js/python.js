@@ -54,3 +54,47 @@ function handleMifotraFile() {
 			toggleModal.click();
 		});
 }
+
+function handleId() {
+	let endpoint = base_url + 'validate-ids';
+
+	dialog
+		.showOpenDialog({
+			properties: ['openFile'],
+			filters: [{ name: 'Text', extensions: ['csv'] }],
+		})
+		.then((result) => {
+			console.log(result.filePaths, result.canceled);
+			if (result.filePaths.length > 0) {
+				let req_data = {
+					path: result.filePaths[0],
+				};
+				localStorage.setItem('accts_file', req_data.path);
+				axios
+					.post(endpoint, req_data)
+					.then(({ data }) => {
+						if (data.success) {
+							btnIDS.classList.remove('btn-info');
+							btnIDS.classList.add('btn-success');
+							iconIds.classList.remove('d-none');
+							btnPath.disabled = false;
+						} else {
+							btnIDS.classList.remove('btn-info');
+							btnIDS.classList.add('btn-danger');
+							errorMessage.innerHTML = data.msg;
+							toggleModal.click();
+						}
+					})
+					.catch((err) => {
+						btnIDS.classList.remove('btn-info');
+						btnIDS.classList.add('btn-danger');
+						errorMessage.innerHTML = err;
+						toggleModal.click();
+					});
+			}
+		})
+		.catch((err) => {
+			errorMessage.innerHTML = err;
+			toggleModal.click();
+		});
+}
