@@ -7,7 +7,8 @@
 		"py-install": "pip install -r requirements.txt",
 		"py-build": "pyinstaller --workpath=engine/build --distpath=engine/dist api.spec",
 		"electron-dev": "electron .",
-		"electron-build": "electron-builder --config electron-builder.config.json  --win --x64"
+		"electron-build:win": "electron-builder --config electron-builder.config.json  --win --x64",
+		"electron-build:mac": "electron-builder --config electron-builder.config.json   --mac"
 	},
 	"repository": {
 		"type": "git",
