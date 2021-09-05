@@ -24,7 +24,7 @@ function handleMifotraFile() {
 				let req_data = {
 					path: result.filePaths[0],
 				};
-				localStorage.setItem('hss_mag', req_data.path);
+				localStorage.setItem('hss_mag_file', req_data.path);
 				axios
 					.post(endpoint, req_data)
 					.then(({ data }) => {
@@ -69,7 +69,7 @@ function handleId() {
 				let req_data = {
 					path: result.filePaths[0],
 				};
-				localStorage.setItem('accts_file', req_data.path);
+				localStorage.setItem('adfinance_file', req_data.path);
 				axios
 					.post(endpoint, req_data)
 					.then(({ data }) => {
@@ -110,7 +110,7 @@ function handleDir() {
 		.then((result) => {
 			console.log(result.filePaths, result.canceled);
 			if (result.filePaths.length > 0) {
-				localStorage.setItem('folder_store', result.filePaths[0]);
+				localStorage.setItem('output_folder', result.filePaths[0]);
 				btnPath.classList.remove('btn-info');
 				btnPath.classList.add('btn-success');
 				iconPath.classList.remove('d-none');
@@ -118,6 +118,49 @@ function handleDir() {
 			}
 		})
 		.catch((err) => {
+			errorMessage.innerHTML = err;
+			toggleModal.click();
+		});
+}
+
+function processData() {
+	let endpoint = base_url + 'process';
+
+	btnMifotra.disabled = true;
+	btnIDS.disabled = true;
+	btnPath.disabled = true;
+	submitBtn.disabled = true;
+
+	submitBtn.classList.add('d-none');
+	loadingBtn.classList.remove('d-none');
+
+	let req_data = {
+		hss_mag_file: localStorage.getItem('hss_mag_file'),
+		adfinance_file: localStorage.getItem('adfinance_file'),
+		output_folder: localStorage.getItem('output_folder'),
+	};
+	axios
+		.post(endpoint, req_data)
+		.then(({ data }) => {
+			if (data.success) {
+				btnIDS.classList.remove('btn-info');
+				btnIDS.classList.add('btn-success');
+				iconIds.classList.remove('d-none');
+				btnPath.disabled = true;
+
+				submitBtn.classList.remove('d-none');
+				submitBtn.disabled = true;
+				loadingBtn.classList.add('d-none');
+			} else {
+				btnIDS.classList.remove('btn-info');
+				btnIDS.classList.add('btn-danger');
+				errorMessage.innerHTML = data.msg;
+				toggleModal.click();
+			}
+		})
+		.catch((err) => {
+			btnIDS.classList.remove('btn-info');
+			btnIDS.classList.add('btn-danger');
 			errorMessage.innerHTML = err;
 			toggleModal.click();
 		});
