@@ -125,17 +125,28 @@
 															<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 															<path d="M5 12l5 5l10 -10" />
 														</svg>
-														ID&Account</button>
+														ID&Account
+													</button>
 												</div>
 												<div class="mb-1">
-													<button disabled onclick="open_explorer()" id="btnPath"
-														class="btn btn-info w-100 uppercase">Output Folder</button>
+													<button disabled onclick="handleDir()" id="btnPath"
+														class="btn btn-info w-100 uppercase">
+														<svg xmlns="http://www.w3.org/2000/svg" class="icon d-none"
+															id="iconPath" width="24" height="24" viewBox="0 0 24 24"
+															stroke-width="2" stroke="currentColor" fill="none"
+															stroke-linecap="round" stroke-linejoin="round">
+															<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+															<path d="M5 12l5 5l10 -10" />
+														</svg>
+														Output Folder
+													</button>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-2 text-center p-2">
-										<button disabled type="button" class="btn btn-circle btn-xl">START</button>
+										<button disabled id="submitBtn" type="button"
+											class="btn btn-circle btn-xl">START</button>
 									</div>
 								</div>
 							</div>

@@ -76,6 +76,7 @@ function handleId() {
 						if (data.success) {
 							btnIDS.classList.remove('btn-info');
 							btnIDS.classList.add('btn-success');
+							console.log('*******');
 							iconIds.classList.remove('d-none');
 							btnPath.disabled = false;
 						} else {
@@ -91,6 +92,29 @@ function handleId() {
 						errorMessage.innerHTML = err;
 						toggleModal.click();
 					});
+			}
+		})
+		.catch((err) => {
+			errorMessage.innerHTML = err;
+			toggleModal.click();
+		});
+}
+
+function handleDir() {
+	let endpoint = base_url + 'validate-ids';
+
+	dialog
+		.showOpenDialog({
+			properties: ['openDirectory'],
+		})
+		.then((result) => {
+			console.log(result.filePaths, result.canceled);
+			if (result.filePaths.length > 0) {
+				localStorage.setItem('folder_store', result.filePaths[0]);
+				btnPath.classList.remove('btn-info');
+				btnPath.classList.add('btn-success');
+				iconPath.classList.remove('d-none');
+				submitBtn.disabled = false;
 			}
 		})
 		.catch((err) => {
