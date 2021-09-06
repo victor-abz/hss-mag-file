@@ -43,8 +43,7 @@ function handleMifotraFile() {
 					.catch((err) => {
 						btnMifotra.classList.remove('btn-info');
 						btnMifotra.classList.add('btn-danger');
-						errorMessage.innerHTML =
-							'An Error Occurred please contact Admin';
+						errorMessage.innerHTML = err;
 						toggleModal.click();
 					});
 			}
