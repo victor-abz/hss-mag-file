@@ -46,12 +46,14 @@ def validat_id(model: api_model.PathModel, response: Response):
         #     model.path, sheet_name="HSS MAG", na_filter=False, engine="openpyxl"
         # )
         adfinance_ids = pd.read_csv(model.path)
-        if "idnumber" in adfinance_ids.columns and "num_complet_cpte" in adfinance_ids.columns:
+        if "id_number" in adfinance_ids.columns and "num_complet_cpte" in adfinance_ids.columns:
             return JSONResponse(
                 status_code=status.HTTP_201_CREATED, content={"success": True, "msg": "Valid"}
             )
         else:
-            raise Exception("Sheet called HSS MAG Should Exist in uploaded file")
+            raise Exception(
+                "Sheet called id_number and num_complet_cpte Should Exist in uploaded file"
+            )
     except Exception as e:
         return JSONResponse(
             status_code=status.HTTP_201_CREATED,
@@ -67,11 +69,11 @@ def process(model: api_model.SubmitModel, response: Response):
             model.hss_mag_file, sheet_name="HSS MAG", na_filter=False, engine="openpyxl"
         )
         adfinance_ids = pd.read_csv(model.adfinance_file)
-        adfinance_ids.rename({"idnumber": "IDNumber"}, axis=1, inplace=True)
+        adfinance_ids.rename({"id_number": "IDNumber"}, axis=1, inplace=True)
 
         # cols = ['IDNumber']
         # Cleanup
-        mifotra_data["IDNumber"] = mifotra_data["IDNumber"].str.replace(" ", "")
+        mifotra_data["IDNumber"] = mifotra_data["IdNumber"].str.replace(" ", "")
 
         # Select ID that don't match
         invalid_values = mifotra_data[mifotra_data["IDNumber"].apply(lambda x: len(str(x)) < 16)]
@@ -91,7 +93,7 @@ def process(model: api_model.SubmitModel, response: Response):
         matching_data = merged_data["both"]
 
         # matching_data
-        grouped_by_employer = matching_data.groupby("Employer")
+        grouped_by_employer = matching_data.groupby("EntityName")
 
         output_folder = model.output_folder
 
