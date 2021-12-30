@@ -96,6 +96,8 @@ def process(model: api_model.SubmitModel, response: Response):
         grouped_by_employer = matching_data.groupby("EntityName")
 
         output_folder = model.output_folder
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
 
         # Save the matched data to excel
         for row, group in grouped_by_employer:
@@ -110,7 +112,20 @@ def process(model: api_model.SubmitModel, response: Response):
         invalid_values
         invalid_values["EmployeeId"].astype(bool)
         cleaned = invalid_values[invalid_values["EmployeeId"].astype(bool)]
-        cleaned.to_excel(os.path.join(output_folder, "unmatched.xlsx"))
+        grp = cleaned.groupby("EntityName")
+
+        # Store Unmatched data to another folder
+        unmatched_dir = os.path.join(output_folder, "unmatched")
+        if not os.path.exists(unmatched_dir):
+            os.makedirs(unmatched_dir)
+
+        for row, group in grp:
+            sheet_name = "".join(c for c in row if c.isalnum() or c.isspace())
+            group.to_csv(
+                os.path.join(unmatched_dir, f"{sheet_name[:30]}.csv"),
+                index=False,
+            )
+        # cleaned.to_excel(os.path.join(output_folder, "unmatched.xlsx"))
 
         return JSONResponse(
             status_code=status.HTTP_201_CREATED, content={"success": True, "msg": "Valid"}
