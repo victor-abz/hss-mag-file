@@ -127,4 +127,32 @@ if you want to change the build options modify this config file `electron-builde
 
 [PyInstaller](https://pyinstaller.readthedocs.io/en/stable/index.html) = build our python to executable format
 
+#### Usage
+
+Get List of ID in Core Banking using query:
+
+```sql
+SELECT
+c.pp_nm_piece_id
+AS "id_number", p.num_complet_cpte
+FROM ad_cli c
+JOIN ad_cpt p ON c.id_client = p.id_titulaire
+WHERE p.id_prod=1;
+```
+
+Get List of from mifotra with following columns.(SHould be one sheet name HSS MAG)
+
+```txt
+EmployeeId
+LastName
+FirstName
+IdNumber
+Amount
+EntityName
+Unit
+PeriodId
+Creditor
+AccountNumber
+```
+
 ## [Licensing](https://github.com/gnoviawan/fast-api-electron-js/blob/main/LICENSE.md)
