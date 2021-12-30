@@ -22,11 +22,11 @@ jobs:
               with:
                   node-version: 14
 
-            - name: yarn install
+            - name: npm install
               run: |
-                  yarn install
+                  npm install
             - name: Publish Releases
               env:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
               run: |
-                  yarn package-ci
+                  npm run electron-build:mac
